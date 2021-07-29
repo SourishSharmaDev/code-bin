@@ -1,55 +1,63 @@
-<template>
+<template class="">
   <div class="home">
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li>
-            <a
-              target="_blank"
-              href="https://github.com/SourishSharmaDev/code-bin"
-              >Github</a
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
     <div class="container center-align">
-      <h1>Code Bin</h1>
+      <h2 class="heading">
+        Code <span><b>Bin</b></span>
+      </h2>
 
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea" data-length="120" v-model="code"></textarea>
-              <label for="textarea1">Type stuff here</label>
-            </div>
-          </div>
-        </form>
+      <div class="input-field col s6">
+        <input id="last_name" type="text" class="validate" />
+        <label for="last_name">Add Clip</label>
       </div>
-      <div v-html="markdown()"></div>
+
+      <div class="column">
+        <div class="col s12 m6">
+          <div v-for="(clip, index) in clips" :key="index">
+            <div class="card blue ">
+              <div class="card-content white-text">
+                <span class="card-title">{{clip.title}}</span>
+                <p>
+                  {{clip.descr}}
+                </p>
+              </div>
+              <div class="card-action">
+                
+                <router-link to="/about" target = "_blank">Open Clip</router-link>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+      
     </div>
   </div>
 </template>
 
+// @ is an alias to /src import { ref, watch } from "vue"; import marked from
+'marked';
 <script>
-// @ is an alias to /src
-import { ref, watch } from "vue";
-import marked from 'marked';
+import { ref } from 'vue';
 export default {
   name: "Home",
   components: {},
   setup() {
-    const code = ref('');
-    const markdown = ()=>{
-      return marked(code.value)
-    }
-
-    watch(code.value, ()=>{
-      markdown()
-    })
-
-    return { code, markdown };
+    const clips = ref([{title:"Demo Clip", descr:"Here goes the description", content:""},{title:"Demo Clip", descr:"Here goes the description", content:""}]);
+    return {clips} 
   },
 };
 </script>
+<style>
+body {
+  padding: none;
+  margin: none;
+  box-sizing: border-box;
+  background: #0e49b5;
+}
+
+.heading {
+  color: #54e346;
+}
+.heading span {
+  color: #fffaa4;
+}
+</style>
